@@ -17,6 +17,10 @@ function contact_form(){
 	echo "Дякуємо за Ваше звернення!";
 	wp_die();
 }
+//ajax chart form
+
+
+
 
 //optimize img
 add_filter( 'jpeg_quality', 'optimizer' );

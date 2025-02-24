@@ -56,7 +56,7 @@ function ClassToLInks( $atts, $item, $args, $depth ) {
 if ( $args->theme_location == 'primary' ) {
       $class = 'main__menu--link';
       if ( $item->current ) {
-      $class = 'menu__item--link active';
+      $class = 'main__menu--link active';
       $classes[ 'class' ] = isset( $classes[ 'class' ] ) ? "{$classes['class']} $class" : $class;
       }
       $atts[ 'aria-current' ] = '';
