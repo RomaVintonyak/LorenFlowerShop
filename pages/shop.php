@@ -4,7 +4,6 @@
  */
 ?>
    <?php get_header();?>
-   <?php get_template_part('templates/intro'); ?>
    <!--works-->
    <section class="works">
       <div class="container">
@@ -15,41 +14,53 @@
                </h3>
             </div><!--/.title-->
             <div class="works__row--content">
-               
-
-            
-            
-            
-               <div class="product__card">
-                  <div class="product__card--img">
-                  <a href="../img/works/work2.jpg" data-lightbox="image-1" data-title="Букет з 21 троянди">
-                     <img src="../img/works/work2.jpg" alt="flowers" class="img">
-                  </a>
-                  </div><!--/.img-->
-                  <div class="product__card--title">
-                  <h3 class="_title">
-                     Букет з 21 троянди
-                  </h3>
-                  <p class="_description">
-                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  </p>
-                  </div><!--/.title-->
-                  <div class="product__card--price">
-                  <p class="_price">
-                     3700
-                  </p>
-                  <p>
-                     грн.
-                  </p>
-                  </div><!--/.price-->
-                  <div class="product__card--button">
-                  <button type="button" class="_byePosition" data-button="byePosition">
-                     Замовити
-                  </button>
-                  </div><!--/.button-->
-               </div><!--/.product__card-->
-               
-      
+            <?php
+                  $args = array(
+                     'post_type'      => 'seting',
+                     'post_status'    => 'publish',
+                     'posts_per_page' =>  100,
+                        'tax_query' => array(
+                           array(
+                              'taxonomy' => 'seting',
+                              'field'    => 'id',
+                              'terms'    => '6'
+                              )
+                           )
+                        );
+                  $flowerPosts = new WP_Query($args);
+               ?>
+               <?php if ($flowerPosts->have_posts()) : while ($flowerPosts->have_posts()) : $flowerPosts->the_post(); ?>	
+                     <div class="product__card">
+                        <div class="product__card--img">
+                        <a href="<?php the_field('osnovne_zobrazhennya'); ?>" data-lightbox="roadtrip" data-title="<?php the_title(); ?>">
+                           <img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="flowers" class="img">
+                        </a>
+                        </div><!--/.img-->
+                        <div class="product__card--title">
+                        <h3 class="_title">
+                           <?php the_title(); ?>
+                        </h3>
+                        <p class="_description">
+                           <?php the_content(); ?>
+                        </p>
+                        </div><!--/.title-->
+                        <div class="product__card--price">
+                        <p class="_price">
+                           <?php the_field('czina_tovaru'); ?>
+                        </p>
+                        <p>
+                           грн.
+                        </p>
+                        </div><!--/.price-->
+                        <div class="product__card--button">
+                        <button type="button" class="_byePosition" data-button="byePosition">
+                           <?php the_field('tekst_knopky'); ?>
+                        </button>
+                        </div><!--/.button-->
+                     </div><!--/.product__card-->
+                     <?php endwhile; ?>
+                  <?php wp_reset_postdata(); ?>
+               <?php endif; ?>
             </div><!--/.content-->
          </div><!--/.works__row-->
       </div><!--/.container-->
