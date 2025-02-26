@@ -20,7 +20,7 @@
       <div class="container">
          <div class="contact__block--row">
             <div class="contact__form">
-               <form data-action="#" id="contactForm" class="contact__form--form">
+               <form data-action="<?php echo site_url(); ?>/wp-admin/admin-ajax.php" id="contactForm" class="contact__form--form">
                   <div class="contact__form--block">
                      <i class="fas fa-user"></i>
                      <input type="text" id="contactName" name="contactName">

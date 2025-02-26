@@ -13,7 +13,7 @@
                   </h3>
                </div><!--/.title-->
                <div class="modal__body--form">
-                  <form data-action="#" id="shopingForm" class="shoping__form">
+                  <form data-action="<?php echo site_url(); ?>/wp-admin/admin-ajax.php" id="shopingForm" class="shoping__form">
                   <h3><?php the_field('pidzagolovok_formy', 'option') ?></h3>
                   <div class="shoping__form--block">
                      <i class="fas fa-user"></i>
