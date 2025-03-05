@@ -33,12 +33,33 @@ function cart_form(){
 
 	$subject = "=?utf-8?B?".base64_encode("Повідомлення із магазину flower.if.ua")."?=";
 	$headers = "From: $email\r\nReply-to: $email\r\nContent-type: text/html; charset=utf-8\r\n"."X-Mailer: PHP/".phpversion();
-	
 	$success = mail("loren.decor@ukr.net", $subject, $message, $headers);
+	/*send tg script*/
+	/* https://api.telegram.org/bot7945342840:AAEQBn0iKVvAJdwfxYLpjNFvGozEbjTxptQ/getUpdates,*/
+	$name = $_POST['name'];
+	$phone = $_POST['phone'];
+	$mesage = $_POST['message'];
+	$titleFlower = $_POST['titleFlowers']; 
+	$descriptFlower = $_POST['descriptionFlowers'];
+	$priceFlower = $_POST['priceFlowers']; 
+	$token = "7945342840:AAEQBn0iKVvAJdwfxYLpjNFvGozEbjTxptQ";
+	$chat_id = "-4721513767";
+	$arr = array(
+		'Імя замовника: ' => $name,
+		'Телефон: ' => $phone,
+		'Додатковий опис: ' => $mesage,
+		'Назва букету: ' => $titleFlower,
+		'Опис букету: ' => $descriptFlower,
+		'Ціна букету: ' => $priceFlower,
+	);
+	foreach($arr as $key => $value) {
+		$txt .= "<b>".$key."</b> ".$value."%0A";
+	};
+	$sendToTelegram = fopen("https://api.telegram.org/bot{$token}/sendMessage?chat_id={$chat_id}&parse_mode=html&text={$txt}","r");
+
 	echo "Дякуємо за Ваше замовлення! Очікуйте на дзвінок менеджера";
 	wp_die();
 }
-
 //optimize img
 add_filter( 'jpeg_quality', 'optimizer' );
 function optimizer( $quality ){

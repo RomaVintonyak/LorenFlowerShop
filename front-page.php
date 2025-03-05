@@ -32,7 +32,7 @@
                   $flowerPosts = new WP_Query($args);
                ?>
                <?php if ($flowerPosts->have_posts()) : while ($flowerPosts->have_posts()) : $flowerPosts->the_post(); ?>	
-                     <div class="product__card">
+                     <div class="product__card" data-order="<?php the_field('czina_tovaru'); ?>">
                         <div class="product__card--img">
                         <a href="<?php the_field('osnovne_zobrazhennya'); ?>" data-lightbox="roadtrip" data-title="<?php the_title(); ?>">
                            <img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="flowers" class="img">
