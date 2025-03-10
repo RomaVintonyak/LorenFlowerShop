@@ -33,12 +33,11 @@
             </div><!--/.sort-->
             <div class="works__row--content">
             <?php
+                  $paged = (get_query_var('paged')) ? get_query_var('paged') : (get_query_var('page') ? get_query_var('page') : 1);
                   $args = array(
                      'post_type'      => 'seting',
-                     'post_status'    => 'publish',
                      'posts_per_page' =>  12,
-                     //'paged'          => get_query_var( 'page' ),
-                     'paged'          => $current_page,
+                     'paged'          => $paged,
                         'tax_query' => array(
                            array(
                               'taxonomy' => 'seting',
@@ -83,28 +82,27 @@
                <?php endif; ?>
             </div><!--/.content-->
             <div class="works__row--pagination">
-               <?php 
+               <?php
+                  $GLOBALS['wp_query']->max_num_pages = $flowerPosts->max_num_pages;
                   $args = array(
-                     'show_all'     => false, // показаны все страницы участвующие в пагинации
-                     'end_size'     => 2,     // количество страниц на концах
-                     'mid_size'     => 2,     // количество страниц вокруг текущей
-                     'prev_next'    => true,  // выводить ли боковые ссылки "предыдущая/следующая страница".
-                     'prev_text'    => __('« Previous'),
-                     'next_text'    => __('Next »'),
-                     'add_args'     => false, // Массив аргументов (переменных запроса), которые нужно добавить к ссылкам.
-                     'add_fragment' => '',     // Текст который добавиться ко всем ссылкам.
-                     'screen_reader_text' => __( 'Posts navigation' ),
-                     'class'        => 'pagination', // CSS класс, добавлено в 5.5.0.
-                     'total'        => $flowerPosts->max_num_pages,
-
-
-                     //'base' => site_url() . '%_%',
-                     //'format' => '?misha=%#%',
-                     
-                     'current' => $current_page,
+                     'show_all'     => false,
+                     'end_size'     => 2,
+                     'mid_size'     => 1,
+                     'prev_next'    => true,
+                     'prev_text'    => __('<i class="fa fa-angle-left"></i>'),
+                     'next_text'    => __('<i class="fa fa-angle-right"></i>'),
+                     'add_args'     => false,
+                     'class'        => 'pagination',
                   );
-                  echo paginate_links( $args );
-                  //echo get_the_posts_pagination($args);
+                  add_filter('navigation_markup_template', 'my_navigation_template', 10, 2 );
+                  function my_navigation_template( $template, $class ){
+                     return '
+                     <nav class="%1$s" role="navigation">
+                        <div class="pagination__links">%3$s</div>
+                     </nav>
+                     ';
+                  }
+                  the_posts_pagination($args);
                ?>
             </div><!--/.pagination-->
          </div><!--/.works__row-->
