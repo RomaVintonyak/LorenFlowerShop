@@ -45,6 +45,21 @@
                <img src="<?php the_field('logotyp', 'option'); ?>" alt="logo" class="img">
             </a>
          </div><!--/.brand-->
+         <div class="header__row--menu">
+            <nav class="nav__menu">
+               <?php 
+                  wp_nav_menu(array(
+                  'theme_location'  => 'primary',
+                  'menu'            => 'Menu Header', 
+                  'container'       => 'ul',
+                  'menu_class'      => 'main__menu', 
+                  'echo'            => true,
+                  'items_wrap'      => '<ul class="%2$s">%3$s</ul>',
+                  'depth'           => 0,
+                  ));
+               ?><!--/.main__menu-->
+            </nav><!--/.nav__menu-->
+         </div><!--/.menu-->
          <div class="header__row--phone">
             <?php
                $phoneNum = get_field('nomer_telefonu', 'option');
@@ -52,7 +67,28 @@
             ?>
             <a href="tel:<?php echo $phoneNumGap; ?>"><?php echo $phoneNum; ?></a>
          </div><!--/.phone-->
-         <div class="header__row--menu">
+         <div class="header__row--social">
+         <?php 
+            if( have_rows('soczialni_merezhi', 'option') ):
+               while( have_rows('soczialni_merezhi', 'option') ) : the_row();
+                  if( have_rows('mesendzhery', 'option') ):
+                     while( have_rows('mesendzhery', 'option') ) : the_row();
+                        $socialURL = get_sub_field('posylannya_merezhi');
+                        $socialIcon = get_sub_field('ikonka_merezhi');
+         ?>
+                        <a href="<?php echo $socialURL; ?>" target="_blank">
+                           <?php echo $socialIcon; ?>
+                        </a>
+               <?php
+                     endwhile;
+                  endif;
+               ?>
+         <?php
+               endwhile;
+            endif;
+         ?>
+         </div><!--/.social-->
+         <div class="header__row--burger">
             <div class="burger__btn">
                <span></span>
                <span></span>
