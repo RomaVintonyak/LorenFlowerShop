@@ -12,6 +12,7 @@ function scriptStyle(){
    wp_deregister_script( 'jquery' );
    wp_enqueue_script('jquery', get_template_directory_uri() . '/assets/js/vendor/jquery-3.4.1.min.js', null, 3, true);
    wp_enqueue_script('lightbox', get_template_directory_uri() . '/assets/js/vendor/lightbox.min.js', null, 2, true);
+   wp_enqueue_script('slick', get_template_directory_uri() . '/assets/js/vendor/slick.min.js', null, 2, true);
    //wp_enqueue_script('simple-lightbox.jquery', get_template_directory_uri() . '/assets/js/vendor/lightbox.min.map', null, 1, true);
    /*main scripts*/
    wp_enqueue_script( 'main', get_template_directory_uri() . '/assets/js/main.min.js', null, 1, true);
