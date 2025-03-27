@@ -14,18 +14,32 @@
                   <?php the_title(); ?>
                </h3>
             </div><!--/.title-->
-            <div class="shipping__content--text">
+            <?php
+               if(have_rows('bloky_tekstu')):
+                  while(have_rows('bloky_tekstu')) : the_row();
+                  $titleBlock = get_sub_field('zagolovok_bloku_tekstu');
+            ?>
+            <div class="shipping__content--block">
+               <h5>
+                  <?php echo $titleBlock; ?>
+               </h5>
                <?php
-                  if(have_rows('abzaczy_tekstu')):
-                     while(have_rows('abzaczy_tekstu')) : the_row();
-                     $textBlock = get_sub_field('tekstove_pole');
+                  if(have_rows('paragraf_bloku_tekstu')):
+                     while(have_rows('paragraf_bloku_tekstu')) : the_row();
+                     $textBlock = get_sub_field('oblast_tekstu_paragrafa');
                ?>
-                  <p><?php echo $textBlock; ?></p>
+               <p>
+                  <?php echo $textBlock; ?>
+               </p>
                <?php
                      endwhile;
                   endif;   
                ?>
-            </div><!--/.text-->
+            </div><!--/.block-->
+            <?php
+                  endwhile;
+               endif;      
+            ?>
          </div><!--/.-shipping__content->
       </div><!--/.container-->
    </section><!--/.shipping-->
